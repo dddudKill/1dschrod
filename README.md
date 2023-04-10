@@ -4,6 +4,6 @@
 Программа позволяет получить численное решение уравнения Шредингера с определением собственных функций и собственных значений оператора гамильтониана для различных видов потенциальных ям. Также возможно сравнить полученное решение с аналитическим результатом.
 ## Установка
 Для работы программы необходимы три модуля:
-- ![alt text](https://github.com/matplotlib/matplotlib "Matplotlib"), установка 'pip install matplotlib'
-- ![alt text](https://docs.python.org/3/library/tkinter.html "Tkinter"), установка 'pip install tk'
-- ![alt text](https://github.com/numpy/numpy "Numpy"), установка 'pip install numpy'
+- [Matplotlib](https://github.com/matplotlib/matplotlib), установка 'pip install matplotlib'
+- [Tkinter](https://docs.python.org/3/library/tkinter.html), установка 'pip install tk'
+- [Numpy](https://github.com/numpy/numpy), установка 'pip install numpy'
