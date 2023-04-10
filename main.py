@@ -11,9 +11,6 @@ m0 = 9.109382150000000e-31
 to_nm = 1e-9
 
 
-# ДЛЯ УПРОЩЕНИЯ БУДЕМ СЧИТАТЬ, ЧТО hbar^2/m0 = 1, А ВСЕ РАСЧЕТЫ ВЕДУТСЯ В нм И эВ #
-
-
 class OneDimensionalSchrodingerSolver:
 
     def __init__(self, V, width=10., m=1.0, npts=50, **kwargs):
@@ -29,7 +26,7 @@ class OneDimensionalSchrodingerSolver:
             self.Vx = V(self.x, V_left, V_right, width)
         elif len(kwargs.items()) == 3:
             self.Vx = V(self.x, V_left, V_right, width, angle)
-        self.H = -(1 / 2 * m) * self.laplacian() + np.diag(self.Vx)
+        self.H = -((hbar/to_nm)**2 / (2 * m * m0)) * self.laplacian() * J2eV + np.diag(self.Vx)
         return
 
     def plot(self, *args, **kwargs):
@@ -49,11 +46,11 @@ class OneDimensionalSchrodingerSolver:
 
         for i in range(*args):
             ax1.axhline(y=E[i], color='k', ls=":")
-            ax1.plot(x, U[:, i] / np.sqrt(h) + E[i], label="Ψ{0}(x, E), E{0} = {1:.2}".format(i + 1, E[i + 1]))
+            ax1.plot(x, U[:, i] + E[i], label="Ψ{0}(x, E), E{0} = {1:.2}".format(i + 1, abs(E[i])))
 
-            ax2.axhline(y=E[i], color='k', ls=":")
-            ax2.plot(x, U[:, i] ** 2 / np.sqrt(h) ** 2 + E[i],
-                     label="|Ψ{0}(x, E)|^2, E{0} = {1:.2}".format(i + 1, E[i + 1]))
+            ax2.axhline(y=E[i] / np.sqrt(h), color='k', ls=":")
+            ax2.plot(x, U[:, i] ** 2 / np.sqrt(h) + E[i],
+                     label="|Ψ{0}(x, E)|^2, E{0} = {1:.2}".format(i + 1, abs(E[i])))
 
         ax1.set_title(titlestring)
         ax1.set_xlabel(xstring)
